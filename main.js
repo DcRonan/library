@@ -15,10 +15,12 @@ const addBookToLibrary = (book) => {
 const deleteBook = (book, tr) => {
   const createBtn = document.createElement('button');
 
-  createBtn.addEventListener('click', () => {
-    tr.parentNode.removeChild(tr);
-    if (myLibrary.indexOf(book) !== -1) {
-      myLibrary.splice(myLibrary.indexOf(book), 1);
+  createBtn.addEventListener("click", () => {
+    if (confirm(alert) === true) {
+      tr.parentNode.removeChild(tr);
+      if (myLibrary.indexOf(book) !== -1) {
+        myLibrary.splice(myLibrary.indexOf(book), 1);
+      }
     }
   });
 
