@@ -1,4 +1,4 @@
-const {newBookForm} = document.forms;
+const { newBookForm } = document.forms;
 
 const Book = (title, author, pages, read) => ({
   title,
@@ -13,7 +13,7 @@ const addBookToLibrary = (book) => {
 };
 
 const deleteBook = (book, tr) => {
- createBtn = document.createElement("button");
+  createBtn = document.createElement("button");
 
   createBtn.addEventListener("click", () => {
     tr.parentNode.removeChild(tr);
@@ -47,12 +47,12 @@ const readStatusToggle = (book, tr) => {
 };
 
 const displayBook = (book) => {
-  tbody = document.querySelector('#tbody');
-  tr = document.createElement('tr');
-  title = document.createElement('td');
-  author = document.createElement('td');
-  pages = document.createElement('td');
-  read = document.createElement('td');
+  tbody = document.querySelector("#tbody");
+  tr = document.createElement("tr");
+  title = document.createElement("td");
+  author = document.createElement("td");
+  pages = document.createElement("td");
+  read = document.createElement("td");
 
   title.textContent = book.title;
   author.textContent = book.author;
