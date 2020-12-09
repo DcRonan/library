@@ -1,20 +1,16 @@
 const { newBookForm } = document.forms;
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
+const Book = (title, author, pages, read) => ({
+  title,
+  author,
+  pages,
+  read,
+});
 
-const exampleOne = new Book('Harry Potter', 'JK Rowling', 350, 'Yes');
-const exampleTwo = new Book('Mocking Bird', 'Author', 280, 'No');
-
-const myLibrary = [exampleOne, exampleTwo];
+const myLibrary = [];
 const addBookToLibrary = (book) => {
   myLibrary.push(book);
 };
-
 
 const deleteBook = (book, tr) => {
   const createBtn = document.createElement('button');
@@ -72,23 +68,17 @@ const displayBook = (book) => {
   tbody.appendChild(tr);
 };
 
-// examples
-const eachBook = (library) => {
-  for (let i = 0; i < library.length; i += 1) {
-    displayBook(library[i]);
-  }
-};
-eachBook(myLibrary);
-// buttons to view and remove add book form
-
 document.querySelector('#form-btn').addEventListener('click', () => {
   newBookForm.style.display = 'block';
+});
+
+document.querySelector('#form-button').addEventListener('click', () => {
+  newBookForm.style.display = 'none';
 });
 
 document.querySelector('#cancel-link').addEventListener('click', () => {
   newBookForm.style.display = 'none';
 });
-
 
 newBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -103,7 +93,7 @@ newBookForm.addEventListener('submit', (e) => {
     read = 'No';
   }
 
-  const book = new Book(title, author, pages, read);
+  const book = Book(title, author, pages, read);
   displayBook(book);
   addBookToLibrary(book);
 });
