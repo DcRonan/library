@@ -1,9 +1,4 @@
-const tbody = document.querySelector("#tbody");
-const tr = document.createElement("tr");
-const title = document.createElement("td");
-const author = document.createElement("td");
-const pages = document.createElement("td");
-const read = document.createElement("td");
+const {newBookForm} = document.forms;
 
 const Book = (title, author, pages, read) => ({
   title,
@@ -18,7 +13,7 @@ const addBookToLibrary = (book) => {
 };
 
 const deleteBook = (book, tr) => {
-  const createBtn = document.createElement("button");
+ createBtn = document.createElement("button");
 
   createBtn.addEventListener("click", () => {
     tr.parentNode.removeChild(tr);
@@ -33,7 +28,7 @@ const deleteBook = (book, tr) => {
 };
 
 const readStatusToggle = (book, tr) => {
-  const createBtn = document.createElement("button");
+  createBtn = document.createElement("button");
 
   createBtn.addEventListener("click", () => {
     const status = tr.querySelector("td:nth-child(4)");
@@ -52,6 +47,13 @@ const readStatusToggle = (book, tr) => {
 };
 
 const displayBook = (book) => {
+  tbody = document.querySelector('#tbody');
+  tr = document.createElement('tr');
+  title = document.createElement('td');
+  author = document.createElement('td');
+  pages = document.createElement('td');
+  read = document.createElement('td');
+
   title.textContent = book.title;
   author.textContent = book.author;
   pages.textContent = book.pages;
@@ -70,11 +72,13 @@ document.querySelector("#form-btn").addEventListener("click", () => {
   newBookForm.style.display = "block";
 });
 
-document.querySelector("#cancel-link").addEventListener("click", () => {
+document.querySelector("#form-button").addEventListener("click", () => {
   newBookForm.style.display = "none";
 });
 
-newBookForm = document.forms;
+document.querySelector("#cancel-link").addEventListener("click", () => {
+  newBookForm.style.display = "none";
+});
 
 newBookForm.addEventListener("submit", (e) => {
   e.preventDefault();
