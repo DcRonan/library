@@ -6,14 +6,9 @@
   const pages = document.createElement('td');
   const read = document.createElement('td');
 
-class Book {
-  constructor(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-  }
-}
+  const Book = (title, author, pages, read) => ({
+    title, author, pages, read
+  });
 
 const myLibrary = [];
 const addBookToLibrary = (book) => {
@@ -92,7 +87,7 @@ newBookForm.addEventListener('submit', (e) => {
     read = 'No';
   }
 
-  const book = new Book(title, author, pages, read);
+  const book = Book(title, author, pages, read);
   displayBook(book);
   addBookToLibrary(book);
 });
