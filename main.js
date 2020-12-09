@@ -1,4 +1,11 @@
+const myLibrary = [];
 const { newBookForm } = document.forms;
+
+class Library  {
+  addBookToLibrary = (book) => {
+    myLibrary.push(book);
+  };
+}
 
 class Book {
   constructor(title, author, pages, read) {
@@ -24,53 +31,48 @@ class Book {
     createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
     tr.appendChild(createBtn);
   };
+
+   displayBook = (book) => {
+    const tbody = document.querySelector('#tbody');
+    const tr = document.createElement('tr');
+    const title = document.createElement('td');
+    const author = document.createElement('td');
+    const pages = document.createElement('td');
+    const read = document.createElement('td');
+  
+    title.textContent = book.title;
+    author.textContent = book.author;
+    pages.textContent = book.pages;
+    read.textContent = book.read;
+  
+    tr.appendChild(title);
+    tr.appendChild(author);
+    tr.appendChild(pages);
+    tr.appendChild(read);
+    book.deleteBook(book, tr);
+    book.readStatus(book, tr);
+    tbody.appendChild(tr);
+  };
+
+  readStatus = (book, tr) => {
+    const createBtn = document.createElement('button');
+  
+    createBtn.addEventListener('click', () => {
+      const status = tr.querySelector('td:nth-child(4)');
+      if (book.read === 'Yes') {
+        status.textContent = 'No';
+        book.read = 'No';
+      } else {
+        status.textContent = 'Yes';
+        book.read = 'Yes';
+      }
+    });
+  
+    createBtn.textContent = 'Toggle status';
+    createBtn.setAttribute('class', 'btn btn-success');
+    tr.appendChild(createBtn);
+  };
 }
-
-const myLibrary = [];
-const addBookToLibrary = (book) => {
-  myLibrary.push(book);
-};
-
-const readStatusToggle = (book, tr) => {
-  const createBtn = document.createElement('button');
-
-  createBtn.addEventListener('click', () => {
-    const status = tr.querySelector('td:nth-child(4)');
-    if (book.read === 'Yes') {
-      status.textContent = 'No';
-      book.read = 'No';
-    } else {
-      status.textContent = 'Yes';
-      book.read = 'Yes';
-    }
-  });
-
-  createBtn.textContent = 'Toggle status';
-  createBtn.setAttribute('class', 'btn btn-success');
-  tr.appendChild(createBtn);
-};
-
-const displayBook = (book) => {
-  const tbody = document.querySelector('#tbody');
-  const tr = document.createElement('tr');
-  const title = document.createElement('td');
-  const author = document.createElement('td');
-  const pages = document.createElement('td');
-  const read = document.createElement('td');
-
-  title.textContent = book.title;
-  author.textContent = book.author;
-  pages.textContent = book.pages;
-  read.textContent = book.read;
-
-  tr.appendChild(title);
-  tr.appendChild(author);
-  tr.appendChild(pages);
-  tr.appendChild(read);
-  book.deleteBook(book, tr);
-  readStatusToggle(book, tr);
-  tbody.appendChild(tr);
-};
 
 document.querySelector('#form-btn').addEventListener('click', () => {
   newBookForm.style.display = 'block';
@@ -98,6 +100,7 @@ newBookForm.addEventListener('submit', (e) => {
   }
 
   const book = new Book(title, author, pages, read);
-  displayBook(book);
-  addBookToLibrary(book);
-});
+  const library = new Library(book);
+    book.displayBook(book);
+    library.addBookToLibrary(book);
+  });
