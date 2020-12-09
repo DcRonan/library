@@ -1,32 +1,34 @@
 const { newBookForm } = document.forms;
 
-const Book = (title, author, pages, read) => ({
-  title,
-  author,
-  pages,
-  read,
-});
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+   deleteBook = (book, tr) => {
+    const createBtn = document.createElement('button');
+  
+    createBtn.addEventListener("click", () => {
+      if (confirm(alert) === true) {
+        tr.parentNode.removeChild(tr);
+        if (myLibrary.indexOf(book) !== -1) {
+          myLibrary.splice(myLibrary.indexOf(book), 1);
+        }
+      }
+    });
+  
+    createBtn.textContent = 'Delete';
+    createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
+    tr.appendChild(createBtn);
+  };
+}
 
 const myLibrary = [];
 const addBookToLibrary = (book) => {
   myLibrary.push(book);
-};
-
-const deleteBook = (book, tr) => {
-  const createBtn = document.createElement('button');
-
-  createBtn.addEventListener("click", () => {
-    if (confirm(alert) === true) {
-      tr.parentNode.removeChild(tr);
-      if (myLibrary.indexOf(book) !== -1) {
-        myLibrary.splice(myLibrary.indexOf(book), 1);
-      }
-    }
-  });
-
-  createBtn.textContent = 'Delete';
-  createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
-  tr.appendChild(createBtn);
 };
 
 const readStatusToggle = (book, tr) => {
@@ -65,7 +67,7 @@ const displayBook = (book) => {
   tr.appendChild(author);
   tr.appendChild(pages);
   tr.appendChild(read);
-  deleteBook(book, tr);
+  book.deleteBook(book, tr);
   readStatusToggle(book, tr);
   tbody.appendChild(tr);
 };
@@ -95,7 +97,7 @@ newBookForm.addEventListener('submit', (e) => {
     read = 'No';
   }
 
-  const book = Book(title, author, pages, read);
+  const book = new Book(title, author, pages, read);
   displayBook(book);
   addBookToLibrary(book);
 });
