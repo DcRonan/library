@@ -1,16 +1,21 @@
-const { newBookForm } = document.forms;
+  const { newBookForm } = document.forms;
+  const tbody = document.querySelector('#tbody');
+  const tr = document.createElement('tr');
+  const title = document.createElement('td');
+  const author = document.createElement('td');
+  const pages = document.createElement('td');
+  const read = document.createElement('td');
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
-const exampleOne = new Book('Harry Potter', 'JK Rowling', 350, 'Yes');
-const exampleTwo = new Book('Mocking Bird', 'Author', 280, 'No');
-
-const myLibrary = [exampleOne, exampleTwo];
+const myLibrary = [];
 const addBookToLibrary = (book) => {
   myLibrary.push(book);
 };
@@ -51,13 +56,6 @@ const readStatusToggle = (book, tr) => {
 };
 
 const displayBook = (book) => {
-  const tbody = document.querySelector('#tbody');
-  const tr = document.createElement('tr');
-  const title = document.createElement('td');
-  const author = document.createElement('td');
-  const pages = document.createElement('td');
-  const read = document.createElement('td');
-
   title.textContent = book.title;
   author.textContent = book.author;
   pages.textContent = book.pages;
@@ -71,15 +69,6 @@ const displayBook = (book) => {
   readStatusToggle(book, tr);
   tbody.appendChild(tr);
 };
-
-// examples
-const eachBook = (library) => {
-  for (let i = 0; i < library.length; i += 1) {
-    displayBook(library[i]);
-  }
-};
-eachBook(myLibrary);
-// buttons to view and remove add book form
 
 document.querySelector('#form-btn').addEventListener('click', () => {
   newBookForm.style.display = 'block';
