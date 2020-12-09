@@ -13,46 +13,46 @@ const addBookToLibrary = (book) => {
 };
 
 const deleteBook = (book, tr) => {
-  createBtn = document.createElement("button");
+  const createBtn = document.createElement('button');
 
-  createBtn.addEventListener("click", () => {
+  createBtn.addEventListener('click', () => {
     tr.parentNode.removeChild(tr);
     if (myLibrary.indexOf(book) !== -1) {
       myLibrary.splice(myLibrary.indexOf(book), 1);
     }
   });
 
-  createBtn.textContent = "Delete";
-  createBtn.setAttribute("class", "btn btn-danger mr-2 ml-3");
+  createBtn.textContent = 'Delete';
+  createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
   tr.appendChild(createBtn);
 };
 
 const readStatusToggle = (book, tr) => {
-  createBtn = document.createElement("button");
+  const createBtn = document.createElement('button');
 
-  createBtn.addEventListener("click", () => {
-    const status = tr.querySelector("td:nth-child(4)");
-    if (book.read === "Yes") {
-      status.textContent = "No";
-      book.read = "No";
+  createBtn.addEventListener('click', () => {
+    const status = tr.querySelector('td:nth-child(4)');
+    if (book.read === 'Yes') {
+      status.textContent = 'No';
+      book.read = 'No';
     } else {
-      status.textContent = "Yes";
-      book.read = "Yes";
+      status.textContent = 'Yes';
+      book.read = 'Yes';
     }
   });
 
-  createBtn.textContent = "Toggle status";
-  createBtn.setAttribute("class", "btn btn-success");
+  createBtn.textContent = 'Toggle status';
+  createBtn.setAttribute('class', 'btn btn-success');
   tr.appendChild(createBtn);
 };
 
 const displayBook = (book) => {
-  tbody = document.querySelector("#tbody");
-  tr = document.createElement("tr");
-  title = document.createElement("td");
-  author = document.createElement("td");
-  pages = document.createElement("td");
-  read = document.createElement("td");
+  const tbody = document.querySelector('#tbody');
+  const tr = document.createElement('tr');
+  const title = document.createElement('td');
+  const author = document.createElement('td');
+  const pages = document.createElement('td');
+  const read = document.createElement('td');
 
   title.textContent = book.title;
   author.textContent = book.author;
@@ -68,19 +68,19 @@ const displayBook = (book) => {
   tbody.appendChild(tr);
 };
 
-document.querySelector("#form-btn").addEventListener("click", () => {
-  newBookForm.style.display = "block";
+document.querySelector('#form-btn').addEventListener('click', () => {
+  newBookForm.style.display = 'block';
 });
 
-document.querySelector("#form-button").addEventListener("click", () => {
-  newBookForm.style.display = "none";
+document.querySelector('#form-button').addEventListener('click', () => {
+  newBookForm.style.display = 'none';
 });
 
-document.querySelector("#cancel-link").addEventListener("click", () => {
-  newBookForm.style.display = "none";
+document.querySelector('#cancel-link').addEventListener('click', () => {
+  newBookForm.style.display = 'none';
 });
 
-newBookForm.addEventListener("submit", (e) => {
+newBookForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const title = newBookForm.querySelector('input[name="title"').value;
   const author = newBookForm.querySelector('input[name="author"').value;
@@ -88,9 +88,9 @@ newBookForm.addEventListener("submit", (e) => {
   const possibleReadValues = newBookForm.querySelectorAll('input[name="read"]');
   let read;
   if (possibleReadValues[0].checked) {
-    read = "Yes";
+    read = 'Yes';
   } else {
-    read = "No";
+    read = 'No';
   }
 
   const book = Book(title, author, pages, read);
