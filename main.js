@@ -1,72 +1,74 @@
+const myLibrary = [];
 const { newBookForm } = document.forms;
 
-const Book = (title, author, pages, read) => ({
-  title,
-  author,
-  pages,
-  read,
-});
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 
-const myLibrary = [];
-const addBookToLibrary = (book) => {
-  myLibrary.push(book);
-};
+  addBookToLibrary = (book) => {
+    myLibrary.push(book);
+  };
 
-const deleteBook = (book, tr) => {
-  const createBtn = document.createElement('button');
+  deleteBook = (book, tr) => {
+    const createBtn = document.createElement('button');
 
-  createBtn.addEventListener('click', () => {
-    tr.parentNode.removeChild(tr);
-    if (myLibrary.indexOf(book) !== -1) {
-      myLibrary.splice(myLibrary.indexOf(book), 1);
-    }
-  });
+    createBtn.addEventListener('click', () => {
+      tr.parentNode.removeChild(tr);
+      if (myLibrary.indexOf(book) !== -1) {
+        myLibrary.splice(myLibrary.indexOf(book), 1);
+      }
+    });
 
-  createBtn.textContent = 'Delete';
-  createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
-  tr.appendChild(createBtn);
-};
+    createBtn.textContent = 'Delete';
+    createBtn.setAttribute('class', 'btn btn-danger mr-2 ml-3');
+    tr.appendChild(createBtn);
+  };
 
-const readStatusToggle = (book, tr) => {
-  const createBtn = document.createElement('button');
+  displayBook = (book) => {
+    const tbody = document.querySelector('#tbody');
+    const tr = document.createElement('tr');
+    const title = document.createElement('td');
+    const author = document.createElement('td');
+    const pages = document.createElement('td');
+    const read = document.createElement('td');
 
-  createBtn.addEventListener('click', () => {
-    const status = tr.querySelector('td:nth-child(4)');
-    if (book.read === 'Yes') {
-      status.textContent = 'No';
-      book.read = 'No';
-    } else {
-      status.textContent = 'Yes';
-      book.read = 'Yes';
-    }
-  });
+    title.textContent = book.title;
+    author.textContent = book.author;
+    pages.textContent = book.pages;
+    read.textContent = book.read;
 
-  createBtn.textContent = 'Toggle status';
-  createBtn.setAttribute('class', 'btn btn-success');
-  tr.appendChild(createBtn);
-};
+    tr.appendChild(title);
+    tr.appendChild(author);
+    tr.appendChild(pages);
+    tr.appendChild(read);
+    book.deleteBook(book, tr);
+    book.readStatus(book, tr);
+    tbody.appendChild(tr);
+  };
 
-const displayBook = (book) => {
-  const tbody = document.querySelector('#tbody');
-  const tr = document.createElement('tr');
-  const title = document.createElement('td');
-  const author = document.createElement('td');
-  const pages = document.createElement('td');
-  const read = document.createElement('td');
+  readStatus = (book, tr) => {
+    const createBtn = document.createElement('button');
 
-  title.textContent = book.title;
-  author.textContent = book.author;
-  pages.textContent = book.pages;
-  read.textContent = book.read;
+    createBtn.addEventListener('click', () => {
+      const status = tr.querySelector('td:nth-child(4)');
+      if (book.read === 'Yes') {
+        status.textContent = 'No';
+        book.read = 'No';
+      } else {
+        status.textContent = 'Yes';
+        book.read = 'Yes';
+      }
+    });
 
-  tr.appendChild(title);
-  tr.appendChild(author);
-  tr.appendChild(pages);
-  tr.appendChild(read);
-  deleteBook(book, tr);
-  readStatusToggle(book, tr);
-  tbody.appendChild(tr);
-};
+    createBtn.textContent = 'Toggle status';
+    createBtn.setAttribute('class', 'btn btn-success');
+    tr.appendChild(createBtn);
+  };
+}
 
 document.querySelector('#form-btn').addEventListener('click', () => {
   newBookForm.style.display = 'block';
@@ -93,7 +95,7 @@ newBookForm.addEventListener('submit', (e) => {
     read = 'No';
   }
 
-  const book = Book(title, author, pages, read);
-  displayBook(book);
-  addBookToLibrary(book);
+  const book = new Book(title, author, pages, read);
+  book.displayBook(book);
+  book.addBookToLibrary(book);
 });
